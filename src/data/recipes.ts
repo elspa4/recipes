@@ -1,9 +1,11 @@
-export type Category = 'Breakfast' | 'Mains' | 'Sides' | 'Soups' | 'Desserts' | 'Drinks'
+export type Category = 'Breakfast' | 'Mains' | 'Sides' | 'Sauces' | 'Soups' | 'Desserts' | 'Drinks'
 
 export interface Ingredient {
   /** Shown in bold, e.g. "2 cups". Omit for items like "Salt, to taste". */
   amount?: string
   item: string
+  /** Slug of another recipe on the site, e.g. "cashew-cream-sauce": the ingredient links to it. */
+  recipe?: string
 }
 
 export interface IngredientGroup {
@@ -14,7 +16,8 @@ export interface IngredientGroup {
 
 /** The full recipe, shown on its page. Recipes without one show a "coming soon" page. */
 export interface RecipeDetails {
-  serves: number
+  /** Omit for things like sauces that don't have servings. */
+  serves?: number
   ingredients: IngredientGroup[]
   steps: string[]
   notes?: string
@@ -35,7 +38,7 @@ export interface Recipe {
   details?: RecipeDetails
 }
 
-// Only the farfalline is real so far (with full details). The rest are placeholders to fill out the grid.
+// Recipes with `details` are real; the rest are placeholders to fill out the grid until they're written up.
 export const recipes: Recipe[] = [
   {
     slug: 'tuscan-herb-farfalline',
@@ -64,7 +67,7 @@ export const recipes: Recipe[] = [
             { amount: '6 oz', item: 'farfalline pasta' },
             { amount: '1 tbsp', item: "vegan butter (Miyoko's preferred)" },
             { amount: '2 tsp', item: 'Better Than Bouillon, vegetable' },
-            { amount: '2 tbsp', item: 'Cashew Cream Sauce' },
+            { amount: '2 tbsp', item: 'Cashew Cream Sauce', recipe: 'cashew-cream-sauce' },
             { amount: '1–2 tbsp', item: 'dairy-free Boursin, Garlic & Herb' },
             { amount: '2 cups', item: 'LivWell Creamy Tuscan Herb sauce' },
           ],
@@ -92,6 +95,35 @@ export const recipes: Recipe[] = [
     },
   },
   {
+    slug: 'cashew-cream-sauce',
+    name: 'Cashew Cream Sauce',
+    category: 'Sauces',
+    blurb: 'A silky, savory cream made from boiled cashews: the dairy-free secret behind creamy pastas and sauces.',
+    totalMinutes: 30,
+    photo: 'photos/cashew-cream-sauce.jpg',
+    tags: ['sauce', 'cashew', 'cream', 'dairy-free', 'base'],
+    pdf: 'pdfs/cashew-cream-sauce.pdf',
+    details: {
+      ingredients: [
+        {
+          items: [
+            { amount: '1 cup', item: 'raw unsalted cashews' },
+            { amount: '1 cup', item: 'water' },
+            { amount: '1 tsp', item: 'lemon juice' },
+            { amount: '1 tsp', item: 'salt' },
+            { amount: '1 tsp', item: 'nutritional yeast' },
+          ],
+        },
+      ],
+      steps: [
+        'Boil the cashews in a pot for 20 minutes. Remove them from the pot and let them cool.',
+        "Once cooled, blend the boiled cashews with the water, lemon juice, salt, and nutritional yeast. The recipe's measurements are suggestions, so season to your taste.",
+      ],
+      notes:
+        "Tasting too much cashew flavor? Add lemon juice. Tasting too bland? Add salt or nutritional yeast. Too thick? Add water. Too thin? The mixture will thicken naturally over time. Worst case, start over!",
+    },
+  },
+  {
     slug: 'moonlit-mushroom-stroganoff',
     name: 'Moonlit Mushroom Stroganoff',
     category: 'Mains',
@@ -114,14 +146,6 @@ export const recipes: Recipe[] = [
     blurb: 'Slow-simmered lentils, root vegetables and rosemary for long winter nights.',
     totalMinutes: 50,
     tags: ['lentils', 'cozy'],
-  },
-  {
-    slug: 'enchanted-garden-salad',
-    name: 'Enchanted Garden Salad',
-    category: 'Sides',
-    blurb: 'Tender greens, edible flowers and a bright lemon-herb vinaigrette.',
-    totalMinutes: 15,
-    tags: ['salad', 'fresh'],
   },
   {
     slug: 'midnight-chocolate-torte',

@@ -16,7 +16,7 @@ function formatTime(min: number) {
 function Badges({ recipe }: { recipe: Recipe }) {
   return (
     <ul className="recipe-badges">
-      {recipe.details && (
+      {recipe.details?.serves && (
         <li className="recipe-badge">
           <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
             {/* a little bowl */}
@@ -75,7 +75,15 @@ function Ingredients({ details }: { details: RecipeDetails }) {
           <ul>
             {group.items.map((ing, j) => (
               <li key={j}>
-                {ing.amount && <strong>{ing.amount}</strong>} {ing.item}
+                {ing.amount && <strong>{ing.amount}</strong>}{' '}
+                {ing.recipe ? (
+                  // made from another recipe on the site: link to it
+                  <Link to={`/recipe/${ing.recipe}`} className="ingredient-link">
+                    {ing.item}
+                  </Link>
+                ) : (
+                  ing.item
+                )}
               </li>
             ))}
           </ul>

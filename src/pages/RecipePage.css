@@ -166,6 +166,24 @@
   top: 6px;
   color: var(--gold-deep);
 }
+/* an ingredient that's its own recipe on the site */
+.ingredient-link {
+  color: #5e4dab;
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 162, 79, 0.8);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.ingredient-link::after {
+  content: ' ✦';
+  font-size: 0.7em;
+  color: var(--gold-deep);
+}
+.ingredient-link:hover {
+  color: var(--ink);
+  text-decoration-color: var(--gold-deep);
+}
+
 .ingredient-group strong {
   font-weight: 700;
   color: var(--ink);
