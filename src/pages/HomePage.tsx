@@ -6,7 +6,7 @@ import { RecipeCard } from '../components/RecipeCard'
 import { SearchField } from '../components/SearchField'
 import { Sprout } from '../components/Sprout'
 import { Starfield } from '../components/Starfield'
-import { recipes, type Recipe } from '../data/recipes'
+import { CATEGORY_ORDER, recipes, type Recipe } from '../data/recipes'
 import { MINI_HEADER_HEIGHT } from '../layout'
 
 /** Every word in the query must appear somewhere in the recipe's searchable text. */
@@ -44,7 +44,15 @@ interface Props {
 }
 
 export function HomePage({ query, onQueryChange, onCompactChange, resultsHeadRef }: Props) {
-  const results = useMemo(() => recipes.filter((r) => matches(r, query)), [query])
+  // Matching recipes, grouped by category priority (mains first); within a
+  // category they keep the order they're listed in recipes.ts.
+  const results = useMemo(
+    () =>
+      recipes
+        .filter((r) => matches(r, query))
+        .toSorted((a, b) => CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category)),
+    [query],
+  )
   const location = useLocation()
   // Arriving from a search on another page: jump straight to the results.
   const toResults = Boolean((location.state as { toResults?: boolean } | null)?.toResults)

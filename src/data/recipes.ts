@@ -1,5 +1,8 @@
 export type Category = 'Breakfast' | 'Mains' | 'Sides' | 'Sauces' | 'Soups' | 'Desserts' | 'Drinks'
 
+/** The order categories appear on the home page: mains first, drinks last. */
+export const CATEGORY_ORDER: Category[] = ['Mains', 'Sides', 'Soups', 'Breakfast', 'Sauces', 'Desserts', 'Drinks']
+
 export interface Ingredient {
   /** Shown in bold, e.g. "2 cups". Omit for items like "Salt, to taste". */
   amount?: string
@@ -124,12 +127,57 @@ export const recipes: Recipe[] = [
     },
   },
   {
-    slug: 'moonlit-mushroom-stroganoff',
-    name: 'Moonlit Mushroom Stroganoff',
+    slug: 'tofu-tikka-masala',
+    name: 'Tofu Tikka Masala',
     category: 'Mains',
-    blurb: 'Silky cashew sour cream, wild mushrooms and a whisper of smoked paprika.',
+    blurb:
+      'Crispy, golden tofu over fluffy basmati with a rich, creamy tikka masala sauce and a crackly scallion pancake on the side.',
     totalMinutes: 35,
-    tags: ['mushroom', 'creamy', 'noodles'],
+    photo: 'photos/tofu-tikka-masala.jpg',
+    tags: ['tofu', 'curry', 'indian', 'rice', 'creamy', 'tikka masala'],
+    pdf: 'pdfs/tofu-tikka-masala.pdf',
+    details: {
+      ingredients: [
+        {
+          title: 'Crispy Tofu',
+          items: [
+            { amount: '2/3 block', item: 'firm tofu' },
+            { amount: '1 tbsp', item: 'cornstarch' },
+            { amount: '1 tsp', item: 'soy sauce' },
+            { item: 'Garlic salt' },
+            { item: "Trader Joe's Mushroom seasoning" },
+            { item: 'Cayenne powder' },
+            { amount: '1 tbsp', item: 'olive oil' },
+          ],
+        },
+        {
+          title: 'Masala Sauce',
+          items: [
+            { amount: '¼ cup', item: 'yellow onion, chopped' },
+            { item: 'Olive oil' },
+            { amount: '2 tbsp', item: "plant butter (Miyoko's recommended)" },
+            { amount: '1 clove', item: 'garlic' },
+            { amount: '1 jar', item: 'Maya Kaimal Vegan Tikka Masala' },
+            { amount: '2 tbsp', item: 'Cashew Cream', recipe: 'cashew-cream-sauce' },
+          ],
+        },
+        {
+          title: 'To Serve',
+          items: [
+            { amount: '½ cup', item: 'basmati rice' },
+            { amount: '1', item: "Trader Joe's scallion pancake" },
+          ],
+        },
+      ],
+      steps: [
+        'Make the rice per the instructions on the bag. Be sure to rinse the dry rice until the water runs clear before cooking, then boil it or cook it in a rice cooker.',
+        'While the rice is cooking, press the tofu and chop it into small cubes. Season with soy sauce, garlic salt, cayenne pepper, and mushroom seasoning, then toss with cornstarch until coated. I recommend throwing it all in a Tupperware and shaking it up.',
+        'Add the olive oil and tofu to a pan over medium-high heat, and cook until the edges turn a lovely golden brown. I like to do this in a wok if you have one. Once done, set aside.',
+        'In another pan, add the chopped onion and olive oil. Cook down until translucent, and then add the butter and garlic. Cook until fragrant. Add the tikka masala sauce and your cashew cream, and stir until combined.',
+        'Pan-sear the scallion pancake until browned on both sides.',
+        'To plate, add rice to one half of the bowl and the sauce to the other. Drizzle extra cashew cream over it, to be fancy. Add the tofu on top of the rice. Cut the scallion pancake into slices, and add them on the side.',
+      ],
+    },
   },
   {
     slug: 'starfall-cinnamon-rolls',
