@@ -180,12 +180,49 @@ export const recipes: Recipe[] = [
     },
   },
   {
-    slug: 'starfall-cinnamon-rolls',
-    name: 'Starfall Cinnamon Rolls',
+    slug: 'savory-breakfast-toastie',
+    name: 'Savory Breakfast Toastie',
     category: 'Breakfast',
-    blurb: 'Pillowy swirls glazed with vanilla bean icing and a dusting of gold sugar.',
-    totalMinutes: 150,
-    tags: ['baking', 'sweet'],
+    blurb:
+      'Golden sourdough stacked with a seared sausage patty, an egg, smoked gouda, and avocado, with a tangy spread.',
+    totalMinutes: 20,
+    photo: 'photos/savory-breakfast-toastie.jpg',
+    tags: ['breakfast', 'sandwich', 'toast', 'egg', 'sausage', 'avocado', 'cheese'],
+    pdf: 'pdfs/savory-breakfast-toastie.pdf',
+    details: {
+      serves: 1,
+      ingredients: [
+        {
+          title: 'Toast',
+          items: [
+            { amount: '2 slices', item: 'sourdough bread' },
+            { item: "Plant-based butter (recommend Miyoko's spreadable oat butter)" },
+            { item: 'Ketchup' },
+            { item: "Plant-based mayo (recommend Hellmann's)" },
+          ],
+        },
+        {
+          title: 'Fillings',
+          items: [
+            { item: 'Just Egg' },
+            { item: 'Dairy-free smoked gouda cheese (recommend Follow Your Heart)' },
+            { item: 'Impossible sausage roll' },
+            { item: 'Avocado' },
+            { item: 'Salt and pepper' },
+            { item: 'Nonstick spray' },
+          ],
+        },
+      ],
+      steps: [
+        'You know those little tiny pans that are for one single egg? Spray one with nonstick spray, then add your Just Egg. Season with salt and pepper.',
+        'When one side of your egg is cooked, flip it over and add your cheese slice so it gets nice and melty.',
+        'Butter your sourdough bread slices lightly, and then add them to a pan. Turn them over as they turn golden brown, and add them to a plate.',
+        'Cut the avocado into thin slices. You really only need a couple, depending on the size of your bread.',
+        'Shape your Impossible sausage to the size of your bread, and cook it in the pan you used for your bread until browned on both sides.',
+        'Mix ketchup and mayo to make a spread. Spread it on both sides of your toasts.',
+        'Add your fillings: sausage, egg & cheese, and avocado on top.',
+      ],
+    },
   },
   {
     slug: 'crispy-crab-roll',
