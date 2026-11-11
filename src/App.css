@@ -198,83 +198,177 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); /* three across on desktop */
   gap: 24px;
 }
 
+/* ── Tarot-style recipe card ──
+   Night-sky top half, ivory bottom half, a fine gold double frame with starred
+   corners, and the dish in a round medallion rising on the horizon between them. */
 .card {
+  width: 100%;
+  max-width: 360px; /* keeps a lone card from stretching too wide */
+  justify-self: center;
+  --medallion: 54%; /* of the card's width */
+  --horizon: 0.8; /* how far down the medallion the horizon crosses (0.5 = through the middle) */
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--card);
-  border: 1px solid var(--line);
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #fffdf8, #f6efe1);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+  box-shadow: 0 1px 2px rgba(43, 38, 96, 0.08), 0 12px 28px -14px rgba(43, 38, 96, 0.45);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
+/* the double gold frame, running across both halves */
+.card::before,
+.card::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 9px;
+  transition: border-color 0.3s;
+}
+.card::before {
+  inset: 9px;
+  border: 1px solid rgba(201, 162, 79, 0.85);
+}
+.card::after {
+  inset: 13px;
+  border: 1px solid rgba(201, 162, 79, 0.4);
+  border-radius: 6px;
+}
+
+.card-corner {
+  position: absolute;
+  z-index: 3;
+  width: 12px;
+  height: 12px;
+  color: var(--gold);
+  background: var(--night-900); /* small patch so the star sits cleanly over the frame lines */
+  border-radius: 50%;
+  padding: 1px;
+}
+.card-corner.tl {
+  top: 3px;
+  left: 3px;
+}
+.card-corner.tr {
+  top: 3px;
+  right: 3px;
+}
+.card-corner.bl {
+  bottom: 3px;
+  left: 3px;
+  color: var(--gold-deep);
+  background: #f6efe1; /* matches the ivory at the bottom */
+}
+.card-corner.br {
+  bottom: 3px;
+  right: 3px;
+  color: var(--gold-deep);
+  background: #f6efe1;
+}
+
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(180, 143, 69, 0.55);
-  box-shadow: 0 2px 4px rgba(43, 38, 96, 0.06), 0 18px 36px -14px rgba(43, 38, 96, 0.4), 0 0 0 4px rgba(228, 196, 126, 0.15);
+  box-shadow: 0 2px 4px rgba(43, 38, 96, 0.08), 0 20px 36px -14px rgba(43, 38, 96, 0.5), 0 0 22px rgba(228, 196, 126, 0.4);
+}
+.card:hover::before {
+  border-color: var(--gold);
 }
 
-.card-photo {
-  position: relative;
-  aspect-ratio: 4 / 3;
+/* the night sky: stars, a violet glow, and a gently curved gold horizon */
+.card-sky {
+  align-self: stretch;
+  padding: 17px 16px calc(var(--medallion) * var(--horizon));
   background:
-    radial-gradient(ellipse at 50% 40%, rgba(122, 104, 220, 0.35), transparent 70%),
-    linear-gradient(180deg, var(--night-800), var(--night-600));
-  border-bottom: 2px solid var(--gold-deep);
-  overflow: hidden;
-}
-.card-photo > * {
-  position: absolute;
-  inset: 0;
-}
-.card-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-.card:hover .card-photo img {
-  transform: scale(1.04);
-}
-.card-photo .plate {
-  width: 100%;
-  height: 100%;
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 16px 18px 18px;
-  flex: 1;
+    radial-gradient(1px 1px at 14% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 82% 22%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 24% 62%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 72% 58%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 74%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 8% 80%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(122, 104, 220, 0.45), transparent 70%),
+    linear-gradient(180deg, var(--night-900), var(--night-600));
+  border-bottom: 1.5px solid var(--gold-deep);
+  border-radius: 0 0 50% 50% / 0 0 26px 26px;
 }
 
 .card-category {
   font-family: var(--font-caps);
   font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+  font-weight: 700;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--sage-deep);
+  color: var(--gold);
+  margin-bottom: 11px; /* breathing room above the rising medallion */
+}
+
+/* round portrait of the dish, rising like a moon on the horizon */
+.card-medallion {
+  position: relative;
+  z-index: 1;
+  width: var(--medallion);
+  aspect-ratio: 1;
+  /* pull the medallion up into the sky; % margins use the card's width, matching the sky's padding */
+  margin-top: calc(var(--medallion) * var(--horizon) * -1);
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  box-shadow:
+    0 0 0 5px #fbf6ea,
+    0 0 0 6.5px rgba(180, 143, 69, 0.7),
+    0 0 26px rgba(228, 196, 126, 0.35),
+    0 10px 22px -8px rgba(43, 38, 96, 0.5);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(122, 104, 220, 0.4), transparent 70%),
+    linear-gradient(180deg, var(--night-800), var(--night-600));
+}
+.card-medallion img,
+.card-medallion .medallion-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.card:hover .card-medallion img {
+  transform: scale(1.06);
+}
+
+/* the ivory half: name, divider, blurb, time */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 20px 17px;
 }
 
 .card-title {
   font-family: var(--font-caps);
   font-weight: 700;
-  font-size: 1.12rem;
+  font-size: 1.02rem;
   line-height: 1.25;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .card-blurb {
   font-style: italic;
   color: var(--ink-soft);
-  font-size: 0.98rem;
-  line-height: 1.4;
+  font-size: 0.92rem;
+  line-height: 1.38;
+  text-wrap: pretty;
+  max-width: 30ch;
 }
 
 .card-meta {
@@ -282,11 +376,11 @@
   align-items: center;
   gap: 6px;
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 5px;
   font-family: var(--font-caps);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
-  color: var(--lavender-deep);
+  color: #5e4dab;
 }
 
 /* Empty state */
@@ -338,7 +432,7 @@
     animation: none;
   }
   .card,
-  .card-photo img {
+  .card-medallion img {
     transition: none;
   }
 }

@@ -8,38 +8,61 @@ function formatTime(min: number) {
   return m ? `${h} hr ${m} min` : `${h} hr`
 }
 
-/** Shown when a recipe has no photo yet: an empty gold-rimmed plate under the stars. */
-function PlatePlaceholder() {
+/** Shown in the medallion when a recipe has no photo yet: a little sprout under the stars. */
+function SproutPlaceholder() {
   return (
-    <svg viewBox="0 0 160 120" className="plate" aria-hidden="true">
-      <circle cx="80" cy="62" r="38" fill="none" stroke="var(--gold)" strokeWidth="1.5" opacity="0.9" />
-      <circle cx="80" cy="62" r="31" fill="rgba(255,255,255,0.06)" stroke="var(--gold)" strokeWidth="0.75" opacity="0.6" />
-      <path d="M80 76 C 79 68, 82 62, 80 52" stroke="#9fe0cf" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M80 66 C 72 68, 66 64, 64 58 C 72 57, 78 60, 80 66Z" fill="#8fd3c0" />
-      <path d="M80 60 C 88 61, 95 56, 97 50 C 89 49, 83 53, 80 60Z" fill="var(--lavender)" />
-      <path d={SPARKLE} transform="translate(122 28) scale(5)" fill="var(--gold)" />
-      <path d={SPARKLE} transform="translate(36 92) scale(3.5)" fill="var(--gold)" opacity="0.8" />
-      <path d={SPARKLE} transform="translate(130 96) scale(2.5)" fill="#fff" opacity="0.7" />
+    <svg viewBox="0 0 100 100" className="medallion-placeholder" aria-hidden="true">
+      <path d="M50 70 C 49 60, 52 54, 50 42" stroke="#9fe0cf" strokeWidth="2" fill="none" strokeLinecap="round" />
+      <path d="M50 58 C 41 61, 33 56, 30 48 C 40 46, 47 51, 50 58Z" fill="#8fd3c0" />
+      <path d="M50 50 C 59 51, 67 45, 69 37 C 59 36, 52 42, 50 50Z" fill="var(--lavender)" />
+      <path d={SPARKLE} transform="translate(72 24) scale(5)" fill="var(--gold)" />
+      <path d={SPARKLE} transform="translate(26 30) scale(3)" fill="var(--gold)" opacity="0.8" />
+      <path d={SPARKLE} transform="translate(76 74) scale(2.5)" fill="#fff" opacity="0.7" />
     </svg>
   )
 }
 
+/** A small four-point star for the frame's corners. */
+function CornerStar({ className }: { className: string }) {
+  return (
+    <svg viewBox="-1 -1 2 2" className={`card-corner ${className}`} aria-hidden="true">
+      <path d={SPARKLE} fill="currentColor" />
+    </svg>
+  )
+}
+
+/**
+ * A recipe styled like a tarot card: a night-sky top half and an ivory bottom
+ * half, a fine gold double frame with starred corners, and the dish in a round
+ * medallion that rises on the horizon between the two.
+ */
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <article className="card">
-      <div className="card-photo">
+      <CornerStar className="tl" />
+      <CornerStar className="tr" />
+      <CornerStar className="bl" />
+      <CornerStar className="br" />
+
+      <div className="card-sky">
+        <p className="card-category">
+          <span aria-hidden="true">✦</span> {recipe.category} <span aria-hidden="true">✦</span>
+        </p>
+      </div>
+
+      <div className="card-medallion">
         {recipe.photo ? (
           <img src={`${import.meta.env.BASE_URL}${recipe.photo}`} alt={recipe.name} loading="lazy" />
         ) : (
-          <PlatePlaceholder />
+          <SproutPlaceholder />
         )}
       </div>
+
       <div className="card-body">
-        <p className="card-category">✦ {recipe.category}</p>
         <h3 className="card-title">{recipe.name}</h3>
         <p className="card-blurb">{recipe.blurb}</p>
         <p className="card-meta">
-          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
             <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.3" />
             <path d="M8 4.5V8l2.5 1.5" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
           </svg>
