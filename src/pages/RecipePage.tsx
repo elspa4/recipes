@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router'
 import { SPARKLE } from '../components/Starfield'
-import { recipes, type RecipeDetails } from '../data/recipes'
+import { recipes, type Recipe, type RecipeDetails } from '../data/recipes'
 import { NotFound } from './NotFound'
 import './RecipePage.css'
 
@@ -12,31 +12,54 @@ function formatTime(min: number) {
   return m ? `${h} hr ${m} min` : `${h} hr`
 }
 
-/** The little leafy flourish after the "Ingredients" and "Method" headings, like the cookbook. */
-function Fleuron() {
+/** Little pills in the banner: how many it serves, and how long it takes. */
+function Badges({ recipe }: { recipe: Recipe }) {
   return (
-    <span className="fleuron" aria-hidden="true">
-      ❦
-    </span>
+    <ul className="recipe-badges">
+      {recipe.details && (
+        <li className="recipe-badge">
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+            {/* a little bowl */}
+            <path
+              d="M3.5 11h17a8.5 8.5 0 0 1-17 0Z M9 19.5h6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+            />
+            <path d="M9 8c0-1.5 1.5-1.5 1.5-3M13.5 8c0-1.5 1.5-1.5 1.5-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          Serves {recipe.details.serves}
+        </li>
+      )}
+      <li className="recipe-badge">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+          <path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+        {formatTime(recipe.totalMinutes)}
+      </li>
+    </ul>
   )
 }
 
-function Stats({ details, totalMinutes }: { details: RecipeDetails; totalMinutes: number }) {
-  const stats = [
-    ['Serves', String(details.serves)],
-    ['Prep', formatTime(details.prepMinutes)],
-    ['Cook', formatTime(details.cookMinutes)],
-    ['Total', formatTime(totalMinutes)],
-  ]
+/** Saves the printable cookbook page. */
+function DownloadButton({ recipe, pdf }: { recipe: Recipe; pdf: string }) {
   return (
-    <dl className="recipe-stats">
-      {stats.map(([label, value]) => (
-        <div key={label} className="recipe-stat">
-          <dt>{label}</dt>
-          <dd>{value}</dd>
-        </div>
-      ))}
-    </dl>
+    <a className="recipe-download" href={`${import.meta.env.BASE_URL}${pdf}`} download={`${recipe.name} · Granacio.pdf`}>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path
+          d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      Download
+    </a>
   )
 }
 
@@ -44,7 +67,7 @@ function Ingredients({ details }: { details: RecipeDetails }) {
   return (
     <section className="recipe-ingredients" aria-labelledby="ingredients-heading">
       <h2 id="ingredients-heading" className="recipe-section-title">
-        Ingredients <Fleuron />
+        Ingredients
       </h2>
       {details.ingredients.map((group, i) => (
         <div key={group.title ?? i} className="ingredient-group">
@@ -62,25 +85,28 @@ function Ingredients({ details }: { details: RecipeDetails }) {
   )
 }
 
+function Notes({ notes }: { notes: string }) {
+  return (
+    <aside className="recipe-notes" aria-label="Notes">
+      <p className="recipe-notes-title" aria-hidden="true">
+        ✦ Notes ✦
+      </p>
+      <p>{notes}</p>
+    </aside>
+  )
+}
+
 function Method({ details }: { details: RecipeDetails }) {
   return (
     <section className="recipe-method" aria-labelledby="method-heading">
       <h2 id="method-heading" className="recipe-section-title">
-        Method <Fleuron />
+        Method
       </h2>
       <ol>
         {details.steps.map((step, i) => (
           <li key={i}>{step}</li>
         ))}
       </ol>
-      {details.notes && (
-        <aside className="recipe-notes" aria-label="Notes">
-          <p className="recipe-notes-title" aria-hidden="true">
-            ✦ Notes ✦
-          </p>
-          <p>{details.notes}</p>
-        </aside>
-      )}
     </section>
   )
 }
@@ -98,15 +124,12 @@ export function RecipePage() {
 
   return (
     <main className="recipe-page">
-      <Link to="/" className="recipe-back">
-        ← All recipes
-      </Link>
-
       <header className="recipe-banner">
         <div className="recipe-banner-text">
           <p className="recipe-kicker">✦ {recipe.category}</p>
           <h1 className="recipe-title">{recipe.name}</h1>
           <p className="recipe-blurb">{recipe.blurb}</p>
+          <Badges recipe={recipe} />
         </div>
 
         <div className="recipe-portrait">
@@ -133,11 +156,21 @@ export function RecipePage() {
 
       {details ? (
         <>
-          <Stats details={details} totalMinutes={recipe.totalMinutes} />
           <div className="recipe-columns">
             <Ingredients details={details} />
             <Method details={details} />
           </div>
+          {(details.notes || recipe.pdf) && (
+            <div className="recipe-footer-row">
+              {details.notes && <Notes notes={details.notes} />}
+              {recipe.pdf && <DownloadButton recipe={recipe} pdf={recipe.pdf} />}
+            </div>
+          )}
+          <p className="recipe-print-footer" aria-hidden="true">
+            <span>Granacio Vegan Recipes</span>
+            <span>✦</span>
+            <span>{recipe.category}</span>
+          </p>
         </>
       ) : (
         <div className="page-message page-message--inline">

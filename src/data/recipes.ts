@@ -15,8 +15,6 @@ export interface IngredientGroup {
 /** The full recipe, shown on its page. Recipes without one show a "coming soon" page. */
 export interface RecipeDetails {
   serves: number
-  prepMinutes: number
-  cookMinutes: number
   ingredients: IngredientGroup[]
   steps: string[]
   notes?: string
@@ -32,6 +30,8 @@ export interface Recipe {
   /** Path relative to /public, e.g. "photos/tuscan-herb-farfalline.jpg". Omit for the placeholder art. */
   photo?: string
   tags?: string[]
+  /** Printable cookbook page, relative to /public, e.g. "pdfs/tuscan-herb-farfalline.pdf". Adds a Save button. */
+  pdf?: string
   details?: RecipeDetails
 }
 
@@ -45,10 +45,9 @@ export const recipes: Recipe[] = [
     totalMinutes: 25,
     photo: 'photos/tuscan-herb-farfalline.jpg',
     tags: ['pasta', 'creamy', 'spinach', 'sausage'],
+    pdf: 'pdfs/tuscan-herb-farfalline.pdf',
     details: {
       serves: 2,
-      prepMinutes: 5,
-      cookMinutes: 20,
       ingredients: [
         {
           title: 'Sausage & Greens',
