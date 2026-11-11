@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { Link, useLocation } from 'react-router'
 import { ExpandingSearch } from './ExpandingSearch'
 import { Sprout } from './Sprout'
 import { SPARKLE } from './Starfield'
@@ -22,17 +23,22 @@ interface Props {
   onQueryChange: (q: string) => void
 }
 
-/** Compact header that springs in once the hero's search bar scrolls away. */
+/** Compact header: springs in on the home page once the hero search scrolls away; always shown on recipe pages. */
 export function MiniHeader({ visible, query, onQueryChange }: Props) {
+  const location = useLocation()
   return (
     <div className="mini-header" data-visible={visible} inert={!visible} aria-hidden={!visible}>
       <div className="mini-inner">
-        <a
-          href="#top"
+        <Link
+          to="/"
           className="mini-brand"
+          aria-label="Granacio Vegan Recipes, home"
           onClick={(e) => {
-            e.preventDefault()
-            window.scrollTo({ top: 0, behavior: 'smooth' })
+            // Already home: glide back up to the top instead of reloading the page.
+            if (location.pathname === '/') {
+              e.preventDefault()
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }
           }}
         >
           <span className="mini-sprout-wrap">
@@ -61,7 +67,7 @@ export function MiniHeader({ visible, query, onQueryChange }: Props) {
               Vegan Recipes
             </span>
           </span>
-        </a>
+        </Link>
 
         <ExpandingSearch id="search-mini" value={query} onChange={onQueryChange} active={visible} />
       </div>

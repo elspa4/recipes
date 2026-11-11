@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import type { Recipe } from '../data/recipes'
 import { SPARKLE } from './Starfield'
 
@@ -38,7 +39,7 @@ function CornerStar({ className }: { className: string }) {
  */
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
-    <article className="card">
+    <Link to={`/recipe/${recipe.slug}`} className="card">
       <CornerStar className="tl" />
       <CornerStar className="tr" />
       <CornerStar className="bl" />
@@ -69,6 +70,6 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           {formatTime(recipe.totalMinutes)}
         </p>
       </div>
-    </article>
+    </Link>
   )
 }

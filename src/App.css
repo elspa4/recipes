@@ -209,6 +209,8 @@
   width: 100%;
   max-width: 360px; /* keeps a lone card from stretching too wide */
   justify-self: center;
+  color: inherit; /* the whole card is a link */
+  text-decoration: none;
   --medallion: 54%; /* of the card's width */
   --horizon: 0.8; /* how far down the medallion the horizon crosses (0.5 = through the middle) */
   position: relative;
@@ -440,7 +442,7 @@
 /* ───────────── Compact header ───────────── */
 
 :root {
-  --mini-h: 64px; /* keep in sync with MINI_HEADER_HEIGHT in App.tsx */
+  --mini-h: 64px; /* keep in sync with MINI_HEADER_HEIGHT in layout.ts */
 }
 
 .mini-header {
@@ -825,4 +827,47 @@
   height: 100vh;
   pointer-events: none;
   z-index: 100; /* above the compact header */
+}
+
+/* ───────────── Simple message pages (not found, coming soon) ───────────── */
+
+.page-message {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: calc(var(--mini-h) + 64px) 16px 80px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+.page-message--inline {
+  padding: 40px 16px 20px;
+}
+.page-message h1,
+.page-message h2 {
+  font-family: var(--font-caps);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin: 6px 0 8px;
+}
+.page-message-kicker {
+  font-family: var(--font-caps);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.page-message-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 24px;
+  font-family: var(--font-caps);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  text-decoration: none;
+  background: linear-gradient(180deg, var(--night-800), var(--night-600));
+  border: 1px solid var(--gold-deep);
+  border-radius: 999px;
 }
