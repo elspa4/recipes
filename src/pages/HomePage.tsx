@@ -44,13 +44,18 @@ interface Props {
 }
 
 export function HomePage({ query, onQueryChange, onCompactChange, resultsHeadRef }: Props) {
-  // Matching recipes, grouped by category priority (mains first); within a
-  // category they keep the order they're listed in recipes.ts.
+  // Matching recipes: finished ones first, then "coming soon" ones at the bottom.
+  // Each of those is grouped by category priority (mains first), and within a
+  // category recipes keep the order they're listed in recipes.ts.
   const results = useMemo(
     () =>
       recipes
         .filter((r) => matches(r, query))
-        .toSorted((a, b) => CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category)),
+        .toSorted(
+          (a, b) =>
+            Number(!a.details) - Number(!b.details) ||
+            CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category),
+        ),
     [query],
   )
   const location = useLocation()

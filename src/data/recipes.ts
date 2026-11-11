@@ -34,7 +34,8 @@ export interface Recipe {
   category: Category
   /** One- or two-line description, shown on the card and under the title on the recipe page. */
   blurb: string
-  totalMinutes: number
+  /** Omit for "coming soon" recipes that haven't been written up yet. */
+  totalMinutes?: number
   /** Path relative to /public, e.g. "photos/tuscan-herb-farfalline.jpg". Omit for the placeholder art. */
   photo?: string
   tags?: string[]
@@ -43,7 +44,7 @@ export interface Recipe {
   details?: RecipeDetails
 }
 
-// Recipes with `details` are real; the rest are placeholders to fill out the grid until they're written up.
+// Recipes with `details` are written up; the rest show a "Coming Soon" badge until they are.
 export const recipes: Recipe[] = [
   {
     slug: 'tuscan-herb-farfalline',
@@ -348,20 +349,61 @@ export const recipes: Recipe[] = [
       ],
     },
   },
+  // ── Coming soon: not written up yet (no details), so they show a "Coming Soon" badge ──
   {
-    slug: 'midnight-chocolate-torte',
-    name: 'Midnight Chocolate Torte',
+    slug: 'starfall-sugar-cookies',
+    name: 'Starfall Sugar Cookies',
     category: 'Desserts',
-    blurb: 'Dense, dark and decadent, crowned with raspberries and a silky ganache.',
-    totalMinutes: 90,
-    tags: ['chocolate', 'baking'],
+    blurb: 'Soft, chewy sugar cookies loaded with crushed Oreos, white chocolate, and chocolate chips.',
+    tags: ['cookies', 'oreo', 'white chocolate', 'chocolate chip', 'baking', 'sweet'],
   },
   {
-    slug: 'lavender-oat-latte',
-    name: 'Lavender Oat Latte',
-    category: 'Drinks',
-    blurb: 'Floral, frothy and softly sweet with maple and dried lavender.',
-    totalMinutes: 10,
-    tags: ['coffee', 'oat milk'],
+    slug: 'spaghetti-and-meatballs',
+    name: 'Homemade Spaghetti & Meatballs',
+    category: 'Mains',
+    blurb: 'Plant-based meatballs simmered in a rich tomato sauce over a tangle of spaghetti.',
+    tags: ['pasta', 'spaghetti', 'meatballs', 'tomato', 'italian'],
+  },
+  {
+    slug: 'spicy-ramen',
+    name: 'Spicy Ramen',
+    category: 'Soups',
+    blurb: 'A fiery, savory broth with springy noodles and all the toppings.',
+    tags: ['ramen', 'noodles', 'spicy', 'soup', 'japanese'],
+  },
+  {
+    slug: 'filet-mignon-caesar-salad',
+    name: 'Filet Mignon & Caesar Salad',
+    category: 'Mains',
+    blurb: 'A seared plant-based filet served alongside a crisp, garlicky Caesar salad.',
+    tags: ['steak', 'filet', 'caesar', 'salad', 'dinner'],
+  },
+  {
+    slug: 'vodka-sausage-pasta-spinach-ravioli',
+    name: 'Vodka Sausage Pasta & Spinach Ravioli',
+    category: 'Mains',
+    blurb: 'Spinach ravioli and seared sausage in a silky, blush-pink vodka sauce.',
+    tags: ['pasta', 'vodka sauce', 'sausage', 'ravioli', 'spinach', 'italian'],
+  },
+  {
+    slug: 'homemade-cream-pasta',
+    name: 'Homemade Cream Pasta',
+    category: 'Mains',
+    blurb: 'Pasta in a velvety, dairy-free cream sauce, made from scratch.',
+    tags: ['pasta', 'cream sauce', 'homemade', 'italian'],
+  },
+  {
+    slug: 'easiest-steak-fried-rice',
+    name: 'Easiest Steak Fried Rice',
+    category: 'Mains',
+    blurb: 'Plant-based steak, veggies, and savory fried rice, all in one pan.',
+    tags: ['rice', 'fried rice', 'steak', 'one pan', 'quick'],
+  },
+  {
+    slug: 'savory-breakfast-scramble',
+    name: 'Savory Breakfast Scramble',
+    category: 'Breakfast',
+    blurb: 'A hearty, savory scramble to start the day right.',
+    tags: ['breakfast', 'scramble', 'egg', 'savory'],
   },
 ]

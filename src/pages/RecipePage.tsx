@@ -35,13 +35,19 @@ function Badges({ recipe }: { recipe: Recipe }) {
           {yieldLabel}
         </li>
       )}
-      <li className="recipe-badge">
-        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-          <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
-          <path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
-        {formatTime(recipe.totalMinutes)}
-      </li>
+      {!recipe.details ? (
+        <li className="recipe-badge">✦ Coming Soon</li>
+      ) : (
+        recipe.totalMinutes && (
+          <li className="recipe-badge">
+            <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+              <path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+            {formatTime(recipe.totalMinutes)}
+          </li>
+        )
+      )}
     </ul>
   )
 }

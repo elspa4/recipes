@@ -385,6 +385,21 @@
   color: #5e4dab;
 }
 
+/* "Coming Soon" pill, on cards for recipes that aren't written up yet */
+.coming-soon-badge {
+  display: inline-block;
+  padding: 3px 11px;
+  font-family: var(--font-caps);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #5e4dab;
+  background: #efe9fb;
+  border: 1px solid rgba(180, 143, 69, 0.7);
+  border-radius: 999px;
+}
+
 /* Empty state */
 
 .empty {

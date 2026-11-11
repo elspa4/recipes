@@ -62,13 +62,22 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
       <div className="card-body">
         <h3 className="card-title">{recipe.name}</h3>
         <p className="card-blurb">{recipe.blurb}</p>
-        <p className="card-meta">
-          <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
-            <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.3" />
-            <path d="M8 4.5V8l2.5 1.5" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-          </svg>
-          {formatTime(recipe.totalMinutes)}
-        </p>
+        {!recipe.details ? (
+          // not written up yet
+          <p className="card-meta">
+            <span className="coming-soon-badge">✦ Coming Soon</span>
+          </p>
+        ) : (
+          recipe.totalMinutes && (
+            <p className="card-meta">
+              <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+                <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.3" />
+                <path d="M8 4.5V8l2.5 1.5" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+              </svg>
+              {formatTime(recipe.totalMinutes)}
+            </p>
+          )
+        )}
       </div>
     </Link>
   )
