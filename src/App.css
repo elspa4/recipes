@@ -726,3 +726,14 @@
     animation: none;
   }
 }
+
+/* ───────────── Cursor sparkle trail ───────────── */
+
+.sparkle-trail {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100; /* above the compact header */
+}

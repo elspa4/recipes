@@ -4,6 +4,7 @@ import { recipes, type Recipe } from './data/recipes'
 import { MiniHeader } from './components/MiniHeader'
 import { RecipeCard } from './components/RecipeCard'
 import { SearchField } from './components/SearchField'
+import { SparkleTrail } from './components/SparkleTrail'
 import { Sprout } from './components/Sprout'
 import { Starfield } from './components/Starfield'
 
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <>
+      <SparkleTrail />
       <MiniHeader visible={compact} query={query} onQueryChange={searchFromMini} />
 
       <header className="hero" id="top">
