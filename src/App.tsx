@@ -1,6 +1,9 @@
 import { type RefObject, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import { recipes, type Recipe } from './data/recipes'
+import { openAbout } from './about'
+import { AboutDialog } from './components/AboutDialog'
+import { DragonButton } from './components/Dragon'
 import { MiniHeader } from './components/MiniHeader'
 import { RecipeCard } from './components/RecipeCard'
 import { SearchField } from './components/SearchField'
@@ -72,9 +75,12 @@ function App() {
           <p className="flourish" aria-hidden="true" data-avoid-stars>
             <span />✦<span />
           </p>
-          <p className="hero-tagline" data-avoid-stars>Enchanted fare from the garden &amp; the hearth</p>
 
-          <SearchField id="search" value={query} onChange={setQuery} formRef={heroSearchRef} />
+          {/* the dragon perches on the end of the search bar, gazing up at the title */}
+          <div className="search-perch">
+            <SearchField id="search" value={query} onChange={setQuery} formRef={heroSearchRef} />
+            <DragonButton onClick={openAbout} />
+          </div>
         </div>
 
         <svg className="hero-hills" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
@@ -82,6 +88,7 @@ function App() {
           <path d="M0 120 L240 70 L470 125 L700 75 L930 125 L1180 80 L1440 115 V160 H0Z" fill="#221e55" />
           <path d="M0 160 V135 Q720 100 1440 135 V160Z" fill="var(--paper)" />
         </svg>
+
       </header>
 
       <main className="recipes">
@@ -109,6 +116,8 @@ function App() {
           </div>
         )}
       </main>
+
+      <AboutDialog />
 
       <footer className="footer">
         <span>Granacio Vegan Recipes</span>

@@ -1,0 +1,302 @@
+/* ───────────── Dragon (image + idle animation) ───────────── */
+
+.dragon-frame {
+  display: block;
+}
+.dragon-frame.is-flipped {
+  transform: scaleX(-1);
+}
+
+/* He holds still; the only motion is the hop on hover. */
+.dragon {
+  display: block;
+  transform-origin: 50% 100%; /* hops from where he sits */
+}
+.dragon img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ───────────── Dragon perched on the hero search bar ───────────── */
+
+/* Wraps the hero search so the dragon can sit on its top edge; the extra top
+   margin gives him headroom. */
+.search-perch {
+  position: relative;
+  max-width: 540px;
+  margin: 52px auto 0;
+}
+.search-perch .search {
+  margin: 0;
+}
+
+.dragon-btn {
+  position: absolute;
+  right: 4px; /* at the end of the bar: feet on the flat rim, tail draping over the rounded end */
+  bottom: calc(100% - 6px); /* feet rest on the bar's rim */
+  width: 104px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 2;
+  /* moonlit rim so the dragon stands out against the night sky */
+  filter: drop-shadow(0 0 1.5px rgba(214, 206, 255, 0.85)) drop-shadow(0 0 10px rgba(160, 150, 255, 0.45));
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dragon-btn:hover .dragon,
+.dragon-btn:focus-visible .dragon {
+  animation: dragon-hop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes dragon-hop {
+  40% {
+    transform: translateY(-10px) rotate(-4deg);
+  }
+  70% {
+    transform: translateY(1px) scale(1.04, 0.96);
+  }
+}
+
+.dragon-bubble {
+  position: absolute;
+  right: 86%; /* pops up just left of him, above the bar */
+  bottom: 38%;
+  white-space: nowrap;
+  font-family: var(--font-caps);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  background: #fffaf0;
+  border: 1px solid var(--gold);
+  border-radius: 14px 14px 2px 14px;
+  padding: 5px 10px;
+  box-shadow: 0 4px 14px rgba(10, 8, 40, 0.35);
+  opacity: 0;
+  transform: translateY(6px) scale(0.8);
+  transform-origin: bottom right;
+  transition:
+    opacity 0.2s,
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+.dragon-btn:hover .dragon-bubble,
+.dragon-btn:focus-visible .dragon-bubble {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 560px) {
+  .dragon-btn {
+    width: 84px;
+    right: 22px;
+  }
+}
+
+/* ───────────── About dialog ───────────── */
+
+html:has(dialog.about[open]) {
+  overflow: hidden; /* no page scrolling behind the modal */
+}
+
+.about {
+  width: min(680px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  border: none;
+  border-radius: 18px;
+  background: transparent;
+  color: var(--ink);
+  overflow: visible;
+}
+.about[open] {
+  animation: about-in 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.about::backdrop {
+  background: rgba(16, 15, 46, 0.6);
+  backdrop-filter: blur(4px);
+  animation: about-fade 0.3s ease-out;
+}
+
+@keyframes about-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+}
+@keyframes about-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.about-card {
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  border-radius: 18px;
+  background: var(--paper);
+  border: 1px solid var(--gold-deep);
+  outline: 1px solid rgba(228, 196, 126, 0.5);
+  outline-offset: -7px;
+  box-shadow: 0 30px 80px -20px rgba(10, 8, 40, 0.7);
+}
+
+.about-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 20px 18px 24px;
+  color: #fff;
+  background:
+    radial-gradient(1px 1px at 12% 25%, #fff, transparent),
+    radial-gradient(1px 1px at 35% 70%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 62% 20%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 80% 60%, #fff, transparent),
+    radial-gradient(ellipse 50% 120% at 20% 100%, rgba(122, 104, 220, 0.35), transparent 70%),
+    linear-gradient(180deg, var(--night-950), var(--night-700));
+  border-bottom: 2px solid var(--gold-deep);
+}
+
+.about-dragon {
+  width: 92px;
+  flex: none;
+  margin-bottom: -8px;
+  filter: drop-shadow(0 0 1.5px rgba(214, 206, 255, 0.85)) drop-shadow(0 0 10px rgba(160, 150, 255, 0.45));
+}
+
+.about-head h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.3rem;
+  line-height: 1.1;
+  color: var(--gold);
+  text-shadow: 0 0 22px rgba(228, 196, 126, 0.35);
+}
+
+.about-close {
+  margin-left: auto; /* sits at the end of the header row, level with the title */
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--gold);
+  background: rgba(16, 15, 46, 0.45);
+  border: 1px solid rgba(228, 196, 126, 0.55);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+.about-close svg {
+  width: 14px;
+  height: 14px;
+}
+.about-close:hover {
+  transform: rotate(90deg);
+  border-color: var(--gold);
+  box-shadow: 0 0 16px rgba(228, 196, 126, 0.4);
+}
+
+.about-body {
+  padding: 24px 28px 28px;
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+.about-body p + p {
+  margin-top: 14px;
+}
+
+/* Tiny sprout that sits in line with the text */
+.sprig {
+  display: inline-block;
+  width: 1.45em;
+  height: 1.45em;
+  vertical-align: -0.3em;
+  margin-left: 0.1em;
+  overflow: visible;
+}
+.sprig-leaf-l,
+.sprig-leaf-r {
+  transform-box: view-box;
+  animation: sprig-sway 3.2s ease-in-out infinite;
+}
+.sprig-leaf-l {
+  transform-origin: 18px 27px;
+}
+.sprig-leaf-r {
+  transform-origin: 19.5px 20px;
+  animation-delay: -1.6s;
+}
+.sprig-sparkle {
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+@keyframes sprig-sway {
+  50% {
+    transform: rotate(-10deg);
+  }
+}
+
+.about-cta {
+  display: block;
+  margin: 22px auto 0;
+  padding: 10px 24px;
+  font-family: var(--font-caps);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  background: linear-gradient(180deg, var(--night-800), var(--night-600));
+  border: 1px solid var(--gold-deep);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px -8px rgba(16, 15, 46, 0.6);
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s;
+}
+.about-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(16, 15, 46, 0.7), 0 0 0 4px rgba(228, 196, 126, 0.18);
+}
+
+@media (max-width: 560px) {
+  .about-head {
+    padding: 16px 14px 14px 16px;
+    gap: 10px;
+  }
+  .about-dragon {
+    width: 70px;
+  }
+  .about-head h2 {
+    font-size: 1.8rem;
+  }
+  .about-body {
+    padding: 20px 18px 24px;
+    font-size: 1.02rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dragon-btn:hover .dragon,
+  .dragon-btn:focus-visible .dragon,
+  .about[open],
+  .about::backdrop,
+  .sprig * {
+    animation: none !important;
+  }
+}
+
+/* Keeps the sprig on the same line as the word before it. */
+.nowrap {
+  white-space: nowrap;
+}

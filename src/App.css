@@ -110,11 +110,6 @@
   transform: scaleX(-1);
 }
 
-.hero-tagline {
-  font-style: italic;
-  color: rgba(236, 232, 255, 0.82);
-}
-
 /* Search */
 
 .search {
