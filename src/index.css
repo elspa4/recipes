@@ -16,9 +16,9 @@
   --sage-deep: #3f8f7c;
 
   /* Paper */
-  --paper: #f3f1fa;
+  --paper: #e6f4ef; /* light tint of the leaf teal (#8fd3c0) */
   --card: #ffffff;
-  --line: #ddd6f1;
+  --line: #c6e2d9;
   --ink: #2b2660;
   --ink-soft: #5d5788;
 

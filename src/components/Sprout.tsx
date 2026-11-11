@@ -1,22 +1,26 @@
+import { useId } from 'react'
 import { SPARKLE } from './Starfield'
 
 /** The glowing seedling from the cover, redrawn as a small inline SVG. */
 export function Sprout({ className }: { className?: string }) {
+  // Unique gradient ids, since the sprout appears more than once. Strip the
+  // punctuation React puts in ids so they're safe inside url(#...).
+  const uid = 'sprout' + useId().replace(/[^a-zA-Z0-9_-]/g, '')
   return (
     <svg className={className} viewBox="0 0 200 170" aria-hidden="true">
       <defs>
-        <radialGradient id="sprout-glow">
+        <radialGradient id={`${uid}glow`}>
           <stop offset="0" stopColor="#fff3c4" stopOpacity="0.95" />
           <stop offset="0.35" stopColor="#ffd98a" stopOpacity="0.45" />
           <stop offset="1" stopColor="#ffd98a" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="sprout-halo">
+        <radialGradient id={`${uid}halo`}>
           <stop offset="0" stopColor="#8a7fe0" stopOpacity="0.35" />
           <stop offset="1" stopColor="#8a7fe0" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      <circle cx="100" cy="90" r="80" fill="url(#sprout-halo)" />
+      <circle cx="100" cy="90" r="80" fill={`url(#${uid}halo)`} />
 
       {/* moon */}
       <path d="M150 22 a17 17 0 1 0 14 28 a13 13 0 1 1 -14 -28z" fill="var(--gold)" />
@@ -53,7 +57,7 @@ export function Sprout({ className }: { className?: string }) {
       </g>
 
       {/* glowing bud */}
-      <circle cx="101" cy="34" r="26" fill="url(#sprout-glow)" className="pulse" />
+      <circle cx="101" cy="34" r="26" fill={`url(#${uid}glow)`} className="pulse" />
       <path d="M101 22 C 108 30, 108 40, 101 44 C 94 40, 94 30, 101 22Z" fill="#ffe6a3" />
 
       <path d={SPARKLE} transform="translate(101 8) scale(5)" fill="#fff4d0" />
