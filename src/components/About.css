@@ -231,36 +231,6 @@ html:has(dialog.about[open]) {
   margin-top: 14px;
 }
 
-/* Tiny sprout that sits in line with the text */
-.sprig {
-  display: inline-block;
-  width: 1.45em;
-  height: 1.45em;
-  vertical-align: -0.3em;
-  margin-left: 0.1em;
-  overflow: visible;
-}
-.sprig-leaf-l,
-.sprig-leaf-r {
-  transform-box: view-box;
-  animation: sprig-sway 3.2s ease-in-out infinite;
-}
-.sprig-leaf-l {
-  transform-origin: 18px 27px;
-}
-.sprig-leaf-r {
-  transform-origin: 19.5px 20px;
-  animation-delay: -1.6s;
-}
-.sprig-sparkle {
-  animation: twinkle 2.6s ease-in-out infinite;
-}
-@keyframes sprig-sway {
-  50% {
-    transform: rotate(-10deg);
-  }
-}
-
 .about-cta {
   display: block;
   margin: 22px auto 0;
@@ -306,13 +276,7 @@ html:has(dialog.about[open]) {
   .dragon-btn:focus-visible .dragon,
   .dragon-btn.is-greeting .dragon /* the bubble still says hello; no hop */,
   .about[open],
-  .about::backdrop,
-  .sprig * {
+  .about::backdrop {
     animation: none !important;
   }
-}
-
-/* Keeps the sprig on the same line as the word before it. */
-.nowrap {
-  white-space: nowrap;
 }

@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import { ABOUT_HASH as HASH } from '../about'
 import './About.css'
 import { DragonArt } from './Dragon'
-import { Sprig } from './Sprig'
 
 /**
  * The About section, shown as a modal whenever the URL hash is #about.
@@ -89,10 +88,7 @@ export function AboutDialog() {
             Hey, I’m Elena, welcome to my corner of the Internet! I built this site to document my recipes, and to share
             with friends and family. I became vegan in 2026, and I wanted a way to still enjoy decadent, delicious recipes
             without hurting any of our animal friends. I began exploring new and different ways of cooking, and realized
-            that you can create incredible dishes with{' '}
-            <span className="nowrap">
-              plants! <Sprig />
-            </span>
+            that you can create incredible dishes with plants!
           </p>
           <p>
             I also really wanted to create a recipe site that was, well, actually usable? Fun? Most recipe sites you click
