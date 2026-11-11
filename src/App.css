@@ -53,27 +53,6 @@
   z-index: -1;
 }
 
-.corner {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border: 1.5px solid var(--gold);
-  border-radius: 50%;
-  opacity: 0.8;
-}
-.corner.tl {
-  top: 8px;
-  left: 8px;
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-}
-.corner.tr {
-  top: 8px;
-  right: 8px;
-  border-left-color: transparent;
-  border-bottom-color: transparent;
-}
-
 .hero-inner {
   max-width: 720px;
   margin: 0 auto;

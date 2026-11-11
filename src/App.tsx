@@ -23,22 +23,19 @@ function App() {
     <>
       <header className="hero">
         <Starfield />
-        <div className="hero-frame" aria-hidden="true">
-          <span className="corner tl" />
-          <span className="corner tr" />
-        </div>
+        <div className="hero-frame" aria-hidden="true" />
 
         <div className="hero-inner">
           <Sprout className="hero-sprout" />
-          <p className="hero-kicker">The Book of</p>
-          <h1 className="hero-title">Granacio</h1>
-          <p className="hero-subtitle">Vegan Recipes</p>
-          <p className="flourish" aria-hidden="true">
+          <p className="hero-kicker" data-avoid-stars>The Book of</p>
+          <h1 className="hero-title" data-avoid-stars>Granacio</h1>
+          <p className="hero-subtitle" data-avoid-stars>Vegan Recipes</p>
+          <p className="flourish" aria-hidden="true" data-avoid-stars>
             <span />✦<span />
           </p>
-          <p className="hero-tagline">Enchanted fare from the garden &amp; the hearth</p>
+          <p className="hero-tagline" data-avoid-stars>Enchanted fare from the garden &amp; the hearth</p>
 
-          <form className="search" role="search" onSubmit={(e) => e.preventDefault()}>
+          <form className="search" role="search" data-avoid-stars onSubmit={(e) => e.preventDefault()}>
             <label htmlFor="search" className="visually-hidden">
               Search recipes
             </label>
