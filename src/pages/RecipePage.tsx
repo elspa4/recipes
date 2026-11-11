@@ -12,11 +12,13 @@ function formatTime(min: number) {
   return m ? `${h} hr ${m} min` : `${h} hr`
 }
 
-/** Little pills in the banner: how many it serves, and how long it takes. */
+/** Little pills in the banner: how many it serves (or makes), and how long it takes. */
 function Badges({ recipe }: { recipe: Recipe }) {
+  const d = recipe.details
+  const yieldLabel = d?.serves ? `Serves ${d.serves}` : d?.makes ? `Makes ${d.makes}` : null
   return (
     <ul className="recipe-badges">
-      {recipe.details?.serves && (
+      {yieldLabel && (
         <li className="recipe-badge">
           <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
             {/* a little bowl */}
@@ -30,7 +32,7 @@ function Badges({ recipe }: { recipe: Recipe }) {
             />
             <path d="M9 8c0-1.5 1.5-1.5 1.5-3M13.5 8c0-1.5 1.5-1.5 1.5-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
-          Serves {recipe.details.serves}
+          {yieldLabel}
         </li>
       )}
       <li className="recipe-badge">

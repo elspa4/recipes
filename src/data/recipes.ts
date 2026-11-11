@@ -21,6 +21,8 @@ export interface IngredientGroup {
 export interface RecipeDetails {
   /** Omit for things like sauces that don't have servings. */
   serves?: number
+  /** For recipes that yield pieces instead of servings, e.g. 12 egg bites. Shown as "Makes 12". */
+  makes?: number
   ingredients: IngredientGroup[]
   steps: string[]
   notes?: string
@@ -222,6 +224,54 @@ export const recipes: Recipe[] = [
         'Mix ketchup and mayo to make a spread. Spread it on both sides of your toasts.',
         'Add your fillings: sausage, egg & cheese, and avocado on top.',
       ],
+    },
+  },
+  {
+    slug: 'tomato-sausage-egg-bites',
+    name: 'Tomato Sausage Egg Bites',
+    category: 'Breakfast',
+    blurb: 'Flaky puff pastry cups filled with sausage, cherry tomatoes, onion and melty cheese, baked into fluffy egg bites.',
+    totalMinutes: 45,
+    photo: 'photos/tomato-sausage-egg-bites.jpg',
+    tags: ['breakfast', 'egg', 'sausage', 'tomato', 'puff pastry', 'cheese', 'brunch', 'make ahead'],
+    pdf: 'pdfs/tomato-sausage-egg-bites.pdf',
+    details: {
+      makes: 12,
+      ingredients: [
+        {
+          title: 'Filling',
+          items: [
+            { amount: '1 tbsp', item: 'olive oil' },
+            { amount: '½', item: 'yellow onion, diced' },
+            { amount: '1 cup', item: 'cherry tomatoes, quartered' },
+            { amount: '½ roll', item: 'Impossible Sausage savory roll (about 7 oz)' },
+            { amount: '¼ cup', item: 'dairy-free Boursin, Garlic & Herb' },
+            { amount: '½ cup', item: 'shredded dairy-free cheddar, divided (recommend Violife)' },
+            { amount: '¼ cup', item: 'dairy-free Parmesan, divided (recommend Follow Your Heart)' },
+          ],
+        },
+        {
+          title: 'Cups & Egg',
+          items: [
+            { amount: '2 sheets', item: 'puff pastry, thawed' },
+            { amount: '1 bottle', item: 'Just Egg (12 oz)' },
+            { amount: '¼ cup', item: 'Cashew Cream', recipe: 'cashew-cream-sauce' },
+            { item: 'Salt and pepper' },
+          ],
+        },
+      ],
+      steps: [
+        'Preheat your oven to 350°F.',
+        'Dice your onion, and chop your tomatoes into fourths.',
+        'Pan-sear the onions in olive oil until they turn translucent. In the same pan, add the Impossible sausage and tomatoes. Break up the sausage into crumbles, and cook until golden brown.',
+        'Cut circles out of your puff pastry, roughly three inches in diameter. Place them into the cups of a cupcake baking pan.',
+        'Add the Boursin and half of the shredded cheeses to your mixture, and then fill the puff pastry cups with it.',
+        'In a bowl, add your Just Egg and ¼ cup of cashew cream. Season with salt and pepper.',
+        'Pour the egg mix into each cup, and top with the rest of the shredded cheeses.',
+        'Bake for 25–30 minutes, or until the egg stops being jiggly.',
+      ],
+      notes:
+        "If you don't want to make cashew cream, feel free to use a dairy-free milk. To reheat, simply pop them in the air fryer for a few minutes.",
     },
   },
   {
