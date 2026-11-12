@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router'
+import { DragonArt } from '../components/Dragon'
 import { SPARKLE } from '../components/Starfield'
 import { recipes, type Recipe, type RecipeDetails } from '../data/recipes'
 import { NotFound } from './NotFound'
@@ -101,14 +102,29 @@ function Ingredients({ details }: { details: RecipeDetails }) {
   )
 }
 
+/** The notes as a speech bubble, with the little dragon below as if he's sharing the tip. */
 function Notes({ notes }: { notes: string }) {
   return (
-    <aside className="recipe-notes" aria-label="Notes">
-      <p className="recipe-notes-title" aria-hidden="true">
-        ✦ Notes ✦
-      </p>
-      <p>{notes}</p>
-    </aside>
+    <div className="recipe-notes-wrap">
+      <aside className="recipe-notes" aria-label="Notes">
+        <p className="recipe-notes-title" aria-hidden="true">
+          ✦ Notes ✦
+        </p>
+        <p>{notes}</p>
+      </aside>
+      {/* the little dragon, sitting on a tiny hill like the one under the sprout */}
+      <div className="notes-perch" aria-hidden="true">
+        <DragonArt className="notes-dragon" />
+        <svg className="notes-hill" viewBox="0 0 120 30" preserveAspectRatio="none">
+          <path d="M0 30 Q 60 -4 120 30 Z" fill="#2e6e64" />
+          <path d="M12 30 Q 60 6 108 30 Z" fill="#3f8f7c" />
+          <rect x="17" y="21" width="2.4" height="6" rx="1" fill="#efe8ff" />
+          <path d="M13.5 22 a4.7 3.4 0 0 1 9.4 0z" fill="var(--lavender)" />
+          <rect x="101" y="22" width="2" height="5" rx="1" fill="#efe8ff" />
+          <path d="M98 23 a4 3 0 0 1 8 0z" fill="var(--sage)" />
+        </svg>
+      </div>
+    </div>
   )
 }
 

@@ -276,6 +276,37 @@ export const recipes: Recipe[] = [
     },
   },
   {
+    slug: 'easiest-steak-fried-rice',
+    name: 'Easiest Steak Fried Rice',
+    category: 'Mains',
+    blurb: 'Plant-based steak tips seared with crispy veggie fried rice, all in one pan.',
+    totalMinutes: 8,
+    photo: 'photos/easiest-steak-fried-rice.jpg',
+    tags: ['rice', 'fried rice', 'steak', 'one pan', 'quick', 'easy', 'weeknight'],
+    pdf: 'pdfs/easiest-steak-fried-rice.pdf',
+    details: {
+      ingredients: [
+        {
+          items: [
+            { amount: '½ bag', item: "Trader Joe's Vegetable Fried Rice" },
+            { amount: '½ tbsp', item: 'olive oil' },
+            { amount: '1 cup', item: 'Beyond Steak Tips (Original or Korean BBQ)' },
+            { item: 'Soy sauce' },
+            { item: 'Kimono Mom Umami sauce' },
+            { item: 'Sesame oil' },
+          ],
+        },
+      ],
+      steps: [
+        'Put ½ bag of fried rice into the pan with ½ tbsp olive oil and 1 cup of Beyond Steak Tips.',
+        'Pan-sear until the rice is crispy and the tips are golden brown, usually about 5–8 minutes.',
+        'Turn the heat off and season to taste with your sauces. Yeah, that’s it.',
+      ],
+      notes:
+        'Picture the scene. It’s a long day of work. You’re tired. You have no idea what to eat. You’re hungry.',
+    },
+  },
+  {
     slug: 'crispy-crab-roll',
     name: 'Crispy “Crab” Roll',
     category: 'Mains',
@@ -391,13 +422,6 @@ export const recipes: Recipe[] = [
     category: 'Mains',
     blurb: 'Pasta in a velvety, dairy-free cream sauce, made from scratch.',
     tags: ['pasta', 'cream sauce', 'homemade', 'italian'],
-  },
-  {
-    slug: 'easiest-steak-fried-rice',
-    name: 'Easiest Steak Fried Rice',
-    category: 'Mains',
-    blurb: 'Plant-based steak, veggies, and savory fried rice, all in one pan.',
-    tags: ['rice', 'fried rice', 'steak', 'one pan', 'quick'],
   },
   {
     slug: 'savory-breakfast-scramble',

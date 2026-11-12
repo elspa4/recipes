@@ -225,11 +225,11 @@
 /* Notes and the Download button share a row below both columns */
 .recipe-footer-row {
   display: flex;
-  align-items: center;
+  align-items: center; /* the Download button sits at the vertical middle of the notes */
   gap: 20px;
   margin-top: 30px;
 }
-.recipe-footer-row .recipe-notes {
+.recipe-footer-row .recipe-notes-wrap {
   flex: 1;
 }
 
@@ -259,11 +259,72 @@
   box-shadow: 0 10px 24px -8px rgba(16, 15, 46, 0.7), 0 0 0 4px rgba(228, 196, 126, 0.18);
 }
 
+/* Notes as a speech bubble, its tail pointing down at the dragon sitting below */
 .recipe-notes {
+  position: relative;
   padding: 16px 20px 18px;
   background: #f1ecfd;
   border: 1px solid #d6cdf1;
-  border-radius: 12px;
+  border-radius: 16px;
+}
+/* The dragon sits on a little hill beside the bubble (no extra row), facing it,
+   and the bubble's tail points at his mouth with a little gap, as if the words
+   are his. The bubble's bottom lines up with the bottom of the hill; his feet sink
+   a few px into the hilltop; his mouth is ~21% down his image. So the tail sits
+   at hill + (79% of his height) - sink above the bubble's bottom. */
+.recipe-notes-wrap {
+  --dragon-w: 76px;
+  --hill-h: 20px;
+  --sink: 7px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px; /* room for the tail, plus a small gap before his snout */
+}
+.recipe-notes-wrap .recipe-notes {
+  flex: 1;
+}
+.notes-perch {
+  order: -1;
+  flex: none;
+  width: calc(var(--dragon-w) + 26px);
+  margin-right: -10px; /* the hill can tuck under the tail; keeps the snout close to it */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.notes-dragon {
+  position: relative;
+  z-index: 1;
+  width: var(--dragon-w);
+  margin-bottom: calc(var(--sink) * -1);
+  filter: drop-shadow(0 4px 6px rgba(43, 38, 96, 0.18));
+  transition: filter 0.35s ease;
+}
+.notes-hill {
+  display: block;
+  width: 100%;
+  height: var(--hill-h);
+}
+/* hover: he hops and glows, like the other dragons */
+.notes-perch:hover .notes-dragon {
+  filter: drop-shadow(0 0 2px rgba(232, 226, 255, 1)) drop-shadow(0 0 16px rgba(190, 175, 255, 0.85))
+    drop-shadow(0 0 30px rgba(228, 196, 126, 0.45));
+}
+.notes-perch:hover .notes-dragon .dragon {
+  animation: dragon-hop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.recipe-notes::after {
+  /* the tail: a rotated square showing just one corner, pointing left */
+  content: '';
+  position: absolute;
+  left: -9px;
+  bottom: calc(var(--hill-h) - var(--sink) + var(--dragon-w) * 0.79 - 8px);
+  width: 16px;
+  height: 16px;
+  background: #f1ecfd;
+  border-right: 1px solid #d6cdf1;
+  border-bottom: 1px solid #d6cdf1;
+  transform: rotate(135deg);
 }
 .recipe-notes-title {
   margin-bottom: 6px;
@@ -308,6 +369,15 @@
   .recipe-download {
     justify-content: center;
   }
+  .recipe-footer-row .recipe-download {
+    margin-top: 0;
+  }
+  .recipe-notes-wrap {
+    --dragon-w: 62px;
+    --hill-h: 17px;
+    --sink: 6px;
+    gap: 14px;
+  }
   .recipe-columns {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -325,6 +395,12 @@
 @page {
   size: letter;
   margin: 0; /* full-bleed paper colour; spacing comes from the page padding below */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notes-perch:hover .notes-dragon .dragon {
+    animation: none;
+  }
 }
 
 @media print {
@@ -421,6 +497,15 @@
   }
   .recipe-notes {
     padding: 12px 18px 14px;
+  }
+  .recipe-notes-wrap {
+    --dragon-w: 60px;
+    --hill-h: 16px;
+    --sink: 5px;
+    gap: 14px;
+  }
+  .notes-dragon {
+    filter: none; /* Chrome prints blurred shadows as grey boxes */
   }
 
   /* "Granacio Vegan Recipes ✦ Mains", like the foot of a cookbook page */
