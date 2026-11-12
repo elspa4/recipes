@@ -48,6 +48,17 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* hover: his moonlit glow brightens (same as the About dragon) */
+.dragon-btn {
+  transition: filter 0.35s ease;
+}
+.dragon-btn:hover,
+.dragon-btn:focus-visible,
+.dragon-btn.is-greeting {
+  filter: drop-shadow(0 0 2px rgba(232, 226, 255, 1)) drop-shadow(0 0 16px rgba(190, 175, 255, 0.85))
+    drop-shadow(0 0 30px rgba(228, 196, 126, 0.45));
+}
+
 .dragon-btn:hover .dragon,
 .dragon-btn:focus-visible .dragon,
 .dragon-btn.is-greeting .dragon /* the one-time hello when the page loads */ {
@@ -105,6 +116,92 @@
   .dragon-btn {
     width: 84px;
     right: 22px;
+  }
+}
+
+/* ── Poof! (the sprout easter egg) ──
+   He shrinks into a puff of smoke while gold sparkles burst out, swaps color at his
+   smallest (see dragonColor.ts), then springs back. */
+.dragon-poofer {
+  display: block;
+  transform-origin: 50% 75%;
+}
+.dragon-poofer.is-poofing {
+  animation: dragon-poof 0.85s both;
+}
+@keyframes dragon-poof {
+  0% {
+    transform: none;
+    opacity: 1;
+    filter: none;
+    animation-timing-function: ease-in;
+  }
+  30%,
+  36% {
+    transform: scale(0.4) rotate(-10deg);
+    opacity: 0.1;
+    filter: blur(2px) brightness(1.8);
+    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+
+.poof {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.poof-cloud {
+  position: absolute;
+  width: var(--ps);
+  height: var(--ps);
+  margin: calc(var(--ps) / -2);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 240, 255, 0.95), rgba(200, 188, 255, 0.6) 55%, transparent 72%);
+  animation: poof-cloud 0.9s ease-out both;
+  animation-delay: calc(var(--i) * 20ms);
+}
+@keyframes poof-cloud {
+  0% {
+    transform: translate(0, 0) scale(0.2);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--px), var(--py)) scale(1.4);
+    opacity: 0;
+  }
+}
+.poof-sparkle {
+  position: absolute;
+  width: var(--ps);
+  height: var(--ps);
+  margin: calc(var(--ps) / -2);
+  filter: drop-shadow(0 0 4px rgba(255, 220, 140, 0.8));
+  animation: poof-sparkle 1s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation-delay: calc(80ms + var(--i) * 25ms);
+}
+@keyframes poof-sparkle {
+  0% {
+    transform: translate(0, 0) scale(0) rotate(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--px), var(--py)) scale(1) rotate(200deg);
+    opacity: 0;
   }
 }
 
@@ -182,6 +279,18 @@ html:has(dialog.about[open]) {
   justify-self: start;
   margin-bottom: -8px;
   filter: drop-shadow(0 0 1.5px rgba(214, 206, 255, 0.85)) drop-shadow(0 0 10px rgba(160, 150, 255, 0.45));
+}
+
+/* On hover he hops (same bounce as on the search bar, no bubble) and his moonlit glow brightens. */
+.about-dragon {
+  transition: filter 0.35s ease;
+}
+.about-dragon:hover {
+  filter: drop-shadow(0 0 2px rgba(232, 226, 255, 1)) drop-shadow(0 0 16px rgba(190, 175, 255, 0.85))
+    drop-shadow(0 0 30px rgba(228, 196, 126, 0.45));
+}
+.about-dragon:hover .dragon {
+  animation: dragon-hop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .about-head h2 {
@@ -275,8 +384,16 @@ html:has(dialog.about[open]) {
   .dragon-btn:hover .dragon,
   .dragon-btn:focus-visible .dragon,
   .dragon-btn.is-greeting .dragon /* the bubble still says hello; no hop */,
+  .about-dragon:hover .dragon,
+  .dragon-poofer.is-poofing,
+  .sprout-btn:hover,
+  .sprout-btn:focus-visible,
   .about[open],
   .about::backdrop {
     animation: none !important;
+  }
+  /* the color still swaps, just without the poof */
+  .poof {
+    display: none;
   }
 }

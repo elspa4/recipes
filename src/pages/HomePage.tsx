@@ -2,6 +2,7 @@ import { type RefObject, useEffect, useLayoutEffect, useMemo, useRef, useState }
 import { useLocation } from 'react-router'
 import { openAbout } from '../about'
 import { DragonButton } from '../components/Dragon'
+import { swapDragonColor } from '../dragonColor'
 import { RecipeCard } from '../components/RecipeCard'
 import { SearchField } from '../components/SearchField'
 import { Sprout } from '../components/Sprout'
@@ -84,7 +85,10 @@ export function HomePage({ query, onQueryChange, onCompactChange, resultsHeadRef
         <div className="hero-frame" aria-hidden="true" />
 
         <div className="hero-inner">
-          <Sprout className="hero-sprout" />
+          {/* easter egg: tapping the sprout sprinkles a little magic on the dragon (purple ↔ teal) */}
+          <button type="button" className="sprout-btn" onClick={swapDragonColor} aria-label="Sprinkle a little magic on the dragon">
+            <Sprout className="hero-sprout" />
+          </button>
           <p className="hero-kicker" data-avoid-stars>
             The Book of
           </p>

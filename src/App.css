@@ -62,9 +62,39 @@
 .hero-sprout {
   width: 170px;
   height: auto;
-  margin: 0 auto 8px;
   display: block;
   filter: drop-shadow(0 0 24px rgba(160, 140, 255, 0.25));
+}
+
+/* Easter egg: the sprout is a secret button that swaps the dragon's color.
+   A gentle hint on hover: it glows a little brighter and gives a wiggle. */
+.sprout-btn {
+  display: block;
+  margin: 0 auto 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 90%;
+  transition: filter 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sprout-btn:hover,
+.sprout-btn:focus-visible {
+  filter: brightness(1.15) drop-shadow(0 0 18px rgba(255, 220, 140, 0.45));
+  animation: sprout-wiggle 0.7s ease-in-out;
+}
+.sprout-btn:active {
+  transform: scale(0.95);
+}
+@keyframes sprout-wiggle {
+  25% {
+    transform: rotate(-4deg);
+  }
+  60% {
+    transform: rotate(3deg);
+  }
 }
 
 .hero-kicker {
