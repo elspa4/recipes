@@ -87,7 +87,7 @@ export function AboutDialog() {
           <p>
             Hey, I’m Elena, welcome to my corner of the Internet! I built this site to document my recipes, and to share
             with friends and family. I became vegan in 2026, and I wanted a way to still enjoy decadent, delicious recipes
-            without any of our animal friends. I began exploring new and different ways of cooking, and realized
+            that leave our animal friends off the plate. I began exploring new and different ways of cooking, and realized
             that you can create incredible dishes with plants!
           </p>
           <p>
