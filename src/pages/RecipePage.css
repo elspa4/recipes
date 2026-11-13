@@ -271,8 +271,8 @@
    and the bubble's tail points at his mouth with a little gap, as if the words
    are his. The bubble's bottom lines up with the bottom of the book's picture
    (--book-h, which includes the shadow under it); his feet land --tuck below its top,
-   on the cover; his mouth is ~21% down his image. So the tail sits at
-   book - tuck + (79% of his height) above the bubble's bottom. */
+   on the cover; his mouth is ~18% down his image. So the tail sits at
+   book - tuck + (82% of his height) above the bubble's bottom. */
 .recipe-notes-wrap {
   --dragon-w: 76px;
   --book-h: 46px;
@@ -283,6 +283,12 @@
 }
 .recipe-notes-wrap .recipe-notes {
   flex: 1;
+  /* tall enough that the tail always lands on the straight part of the left edge,
+     clear of the rounded top corner (tail centre + half its diagonal + the corner radius) */
+  min-height: calc(var(--book-h) - var(--tuck) + var(--dragon-w) * 0.82 + 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .notes-perch {
   order: -1;
@@ -367,7 +373,7 @@
   content: '';
   position: absolute;
   left: -9px;
-  bottom: calc(var(--book-h) - var(--tuck) + var(--dragon-w) * 0.79 - 8px);
+  bottom: calc(var(--book-h) - var(--tuck) + var(--dragon-w) * 0.82 - 8px);
   width: 16px;
   height: 16px;
   background: #f1ecfd;
