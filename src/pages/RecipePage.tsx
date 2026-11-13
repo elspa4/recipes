@@ -112,16 +112,65 @@ function Notes({ notes }: { notes: string }) {
         </p>
         <p>{notes}</p>
       </aside>
-      {/* the little dragon, sitting on a tiny hill like the one under the sprout */}
+      {/* the little dragon, riding a floating spellbook */}
       <div className="notes-perch" aria-hidden="true">
         <DragonArt className="notes-dragon" />
-        <svg className="notes-hill" viewBox="0 0 120 30" preserveAspectRatio="none">
-          <path d="M0 30 Q 60 -4 120 30 Z" fill="#2e6e64" />
-          <path d="M12 30 Q 60 6 108 30 Z" fill="#3f8f7c" />
-          <rect x="17" y="21" width="2.4" height="6" rx="1" fill="#efe8ff" />
-          <path d="M13.5 22 a4.7 3.4 0 0 1 9.4 0z" fill="var(--lavender)" />
-          <rect x="101" y="22" width="2" height="5" rx="1" fill="#efe8ff" />
-          <path d="M98 23 a4 3 0 0 1 8 0z" fill="var(--sage)" />
+        <svg className="notes-book" viewBox="0 0 120 50" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="notes-book-cover" gradientUnits="userSpaceOnUse" x1="0" y1="9" x2="0" y2="23">
+              <stop offset="0" stopColor="#6c5bd4" />
+              <stop offset="1" stopColor="#3b2f94" />
+            </linearGradient>
+            <linearGradient id="notes-book-spine" gradientUnits="userSpaceOnUse" x1="0" y1="20.5" x2="0" y2="36">
+              <stop offset="0" stopColor="#4c3fae" />
+              <stop offset="0.35" stopColor="#6556cc" />
+              <stop offset="1" stopColor="#2c2475" />
+            </linearGradient>
+            <linearGradient id="notes-book-pages-side" gradientUnits="userSpaceOnUse" x1="0" y1="13" x2="0" y2="34">
+              <stop offset="0" stopColor="#fdf6e1" />
+              <stop offset="1" stopColor="#ead49b" />
+            </linearGradient>
+            <radialGradient id="notes-book-glow">
+              <stop offset="0" stopColor="#b9a8ff" stopOpacity="0.6" />
+              <stop offset="1" stopColor="#b9a8ff" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          {/* a soft magic glow on the ground; it stays put while the book bobs above it */}
+          <ellipse className="book-shadow" cx="60" cy="46" rx="40" ry="4" fill="url(#notes-book-glow)" />
+          <g className="book-body">
+            {/* the left end of the book: just its gilded page edges */}
+            <path d="M4 9 L12 21 H20 V36 H12 L4 24 Z" fill="url(#notes-book-pages-side)" />
+            <path d="M4 12 L12 24 M4 15 L12 27 M4 18 L12 30 M4 21 L12 33" stroke="#d8bf82" strokeWidth="0.45" opacity="0.8" />
+            {/* a teal ribbon bookmark: it slips out between two pages (along a page line),
+                lies across the page edges, then folds over the bottom edge and hangs down */}
+            <path d="M7.1 22.65 L10.3 27.45 V33.45 L7.1 28.65 Z" fill="#3f8f7c" />
+            <path d="M7.1 22.65 L10.3 27.45" stroke="#2e6e64" strokeWidth="0.6" strokeLinecap="round" />
+            <path d="M7.9 24.2 V29.4" stroke="#6cbca6" strokeWidth="0.5" />
+            <g className="book-ribbon">
+              <path d="M7.1 28.65 C7.1 35 7.9 38.5 7.6 42.8 L9.2 41.2 L10.8 42.8 C11.1 39 10.3 36 10.3 33.45 Z" fill="#358270" />
+              <path d="M7.9 29.6 C7.9 35.5 8.6 38.5 8.4 41.8" fill="none" stroke="#5fae9a" strokeWidth="0.5" />
+            </g>
+            {/* the front cover on top */}
+            <path d="M4 9 H104 L110.6 18.9 Q112 21 109.5 21 H14.5 Q12 21 10.6 18.9 Z" fill="url(#notes-book-cover)" />
+            <path d="M18 10 H44 L39 19.5 H12 Z" fill="#ffffff" opacity="0.07" />
+            <path d="M17 19 H107 L101.7 11 H11.7 Z" fill="none" stroke="var(--gold)" strokeWidth="0.8" opacity="0.9" />
+            <path d="M21 17.5 H103 L99.7 12.5 H17.7 Z" fill="none" stroke="var(--gold)" strokeWidth="0.45" opacity="0.6" />
+            {/* the spine, facing us, with raised gold bands and a title plate */}
+            <rect x="12" y="20.5" width="100" height="15.5" rx="1.5" fill="url(#notes-book-spine)" />
+            <path d="M13.5 23 H110.5 M13.5 33.6 H110.5" stroke="var(--gold)" strokeWidth="0.5" opacity="0.75" />
+            <path d="M24 21 V35.5 M28 21 V35.5 M96 21 V35.5 M100 21 V35.5" stroke="var(--gold)" strokeWidth="1.3" />
+            <rect x="44" y="24.5" width="36" height="7.6" rx="1.6" fill="#2a2370" stroke="var(--gold)" strokeWidth="0.7" />
+            <path d="M62 25.6 Q62 28.3 65.4 28.3 Q62 28.3 62 31 Q62 28.3 58.6 28.3 Q62 28.3 62 25.6Z" fill="var(--gold)" />
+            <circle cx="52" cy="28.3" r="0.8" fill="var(--gold)" />
+            <circle cx="72" cy="28.3" r="0.8" fill="var(--gold)" />
+          </g>
+          {/* sparkles of magic around it */}
+          <path className="book-sparkle" d="M-1 -1 Q-1 3 3 3 Q-1 3 -1 7 Q-1 3 -5 3 Q-1 3 -1 -1Z" fill="var(--gold)" />
+          <path className="book-sparkle book-sparkle-2" d="M116 3 Q116 7 120 7 Q116 7 116 11 Q116 7 112 7 Q116 7 116 3Z" fill="var(--gold)" />
+          <path className="book-sparkle book-sparkle-3" d="M118 21.4 Q118 24 120.6 24 Q118 24 118 26.6 Q118 24 115.4 24 Q118 24 118 21.4Z" fill="var(--gold)" />
+          <path className="book-sparkle book-sparkle-2" d="M116 37.8 Q116 40 118.2 40 Q116 40 116 42.2 Q116 40 113.8 40 Q116 40 116 37.8Z" fill="var(--gold)" />
+          <circle className="book-sparkle book-sparkle-3" cx="13" cy="3" r="0.9" fill="var(--gold)" />
+          <circle className="book-sparkle book-sparkle-2" cx="118" cy="15" r="0.8" fill="var(--gold)" />
         </svg>
       </div>
     </div>

@@ -267,15 +267,16 @@
   border: 1px solid #d6cdf1;
   border-radius: 16px;
 }
-/* The dragon sits on a little hill beside the bubble (no extra row), facing it,
+/* The dragon rides a little spellbook beside the bubble (no extra row), facing it,
    and the bubble's tail points at his mouth with a little gap, as if the words
-   are his. The bubble's bottom lines up with the bottom of the hill; his feet sink
-   a few px into the hilltop; his mouth is ~21% down his image. So the tail sits
-   at hill + (79% of his height) - sink above the bubble's bottom. */
+   are his. The bubble's bottom lines up with the bottom of the book's picture
+   (--book-h, which includes the shadow under it); his feet land --tuck below its top,
+   on the cover; his mouth is ~21% down his image. So the tail sits at
+   book - tuck + (79% of his height) above the bubble's bottom. */
 .recipe-notes-wrap {
   --dragon-w: 76px;
-  --hill-h: 20px;
-  --sink: 7px;
+  --book-h: 46px;
+  --tuck: 18px;
   display: flex;
   align-items: flex-end;
   gap: 16px; /* room for the tail, plus a small gap before his snout */
@@ -286,24 +287,72 @@
 .notes-perch {
   order: -1;
   flex: none;
-  width: calc(var(--dragon-w) + 26px);
-  margin-right: -10px; /* the hill can tuck under the tail; keeps the snout close to it */
+  width: calc(var(--dragon-w) + 40px);
+  margin-right: -11px; /* pulls the snout toward the tail, leaving a little room after the book */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .notes-dragon {
   position: relative;
-  z-index: 1;
+  z-index: 2; /* in front of the book: he's sitting on its cover */
+  left: calc(var(--dragon-w) * -0.07); /* a touch left of the book's middle */
   width: var(--dragon-w);
-  margin-bottom: calc(var(--sink) * -1);
+  margin-bottom: calc(var(--tuck) * -1);
   filter: drop-shadow(0 4px 6px rgba(43, 38, 96, 0.18));
   transition: filter 0.35s ease;
 }
-.notes-hill {
+.notes-book {
+  position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
-  height: var(--hill-h);
+  height: var(--book-h);
+  overflow: visible;
+}
+/* he and his book bob gently together; the shadow shrinks as they rise */
+.notes-dragon,
+.book-body {
+  animation: book-float 3.6s ease-in-out infinite;
+}
+.book-shadow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: book-shadow 3.6s ease-in-out infinite;
+}
+@keyframes book-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+@keyframes book-shadow {
+  0%, 100% { scale: 1; }
+  50% { scale: 0.85; }
+}
+/* the bookmark's hanging end sways a little as the book floats */
+.book-ribbon {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: ribbon-sway 3.6s ease-in-out infinite;
+}
+@keyframes ribbon-sway {
+  0%, 100% { rotate: 0deg; }
+  50% { rotate: 3deg; }
+}
+/* two gold sparkles gently twinkle beside the book */
+.book-sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: book-twinkle 2.8s ease-in-out infinite;
+}
+.book-sparkle-2 {
+  animation-delay: -1.4s;
+}
+.book-sparkle-3 {
+  animation-delay: -0.7s;
+}
+@keyframes book-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.6); }
 }
 /* hover: he hops and glows, like the other dragons */
 .notes-perch:hover .notes-dragon {
@@ -318,7 +367,7 @@
   content: '';
   position: absolute;
   left: -9px;
-  bottom: calc(var(--hill-h) - var(--sink) + var(--dragon-w) * 0.79 - 8px);
+  bottom: calc(var(--book-h) - var(--tuck) + var(--dragon-w) * 0.79 - 8px);
   width: 16px;
   height: 16px;
   background: #f1ecfd;
@@ -374,8 +423,8 @@
   }
   .recipe-notes-wrap {
     --dragon-w: 62px;
-    --hill-h: 17px;
-    --sink: 6px;
+    --book-h: 41px;
+    --tuck: 16px;
     gap: 14px;
   }
   .recipe-columns {
@@ -401,9 +450,23 @@
   .notes-perch:hover .notes-dragon .dragon {
     animation: none;
   }
+  .book-sparkle,
+  .book-body,
+  .book-shadow,
+  .book-ribbon,
+  .notes-dragon {
+    animation: none;
+  }
 }
 
 @media print {
+  .book-sparkle,
+  .book-body,
+  .book-shadow,
+  .book-ribbon,
+  .notes-dragon {
+    animation: none;
+  }
   :root {
     font-size: 14.6px;
   }
@@ -500,8 +563,8 @@
   }
   .recipe-notes-wrap {
     --dragon-w: 60px;
-    --hill-h: 16px;
-    --sink: 5px;
+    --book-h: 40px;
+    --tuck: 15px;
     gap: 14px;
   }
   .notes-dragon {

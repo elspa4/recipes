@@ -324,6 +324,7 @@ export const recipes: Recipe[] = [
             { amount: '1/3 block', item: 'firm tofu' },
             { item: 'Old Bay seasoning' },
             { item: 'Soy sauce' },
+            { item: 'Kimono Mom Umami sauce' },
             { item: 'Gyoza sauce' },
             { item: "Plant-based mayo (highly recommend Hellmann's)" },
             { item: 'Sriracha' },
@@ -362,7 +363,7 @@ export const recipes: Recipe[] = [
       ],
       steps: [
         'Microwave the sushi rice. Open it and let it cool.',
-        'Make the “crab.” Shred or thinly chop 1/3 block of tofu into tiny strips. I aim for about 1 inch long and very narrow. Crumble some nori, and season with Old Bay, soy sauce, gyoza sauce, mayo, a little bit of sriracha, sesame seeds, and sesame oil. Mixy mixy, but try to maintain the tofu’s shape. You want enough for a light sauce, but not a soup.',
+        'Make the “crab.” Shred or thinly chop 1/3 block of tofu into tiny strips. I aim for about 1 inch long and very narrow. Crumble some nori, and season with Old Bay, soy sauce, Kimono Mom Umami sauce, gyoza sauce, mayo, a little bit of sriracha, sesame seeds, and sesame oil. Mixy mixy, but try to maintain the tofu’s shape. You want enough for a light sauce, but not a soup.',
         'Thinly chop the cucumber into little chopsticks.',
         'Cut an avocado in half, and use a knife to divide it into thin slices. Remove the slices and set aside.',
         'Mix more spicy mayo: add mayo and then a touch of sriracha, and combine. Set aside.',
