@@ -383,11 +383,53 @@ export const recipes: Recipe[] = [
   },
   // ── Coming soon: not written up yet (no details), so they show a "Coming Soon" badge ──
   {
-    slug: 'starfall-sugar-cookies',
-    name: 'Starfall Sugar Cookies',
+    slug: 'oreo-chocolate-chip-cookies',
+    name: 'Oreo Chocolate Chip Cookies',
     category: 'Desserts',
-    blurb: 'Soft, chewy sugar cookies loaded with crushed Oreos, white chocolate, and chocolate chips.',
+    blurb: 'Soft, chewy cookies loaded with crushed Oreos, white chocolate, and chocolate chips.',
+    totalMinutes: 25,
+    photo: 'photos/oreo-chocolate-chip-cookies.jpg',
     tags: ['cookies', 'oreo', 'white chocolate', 'chocolate chip', 'baking', 'sweet'],
+    pdf: 'pdfs/oreo-chocolate-chip-cookies.pdf',
+    details: {
+      ingredients: [
+        {
+          title: 'Dry',
+          items: [
+            { amount: '1 cup', item: 'flour' },
+            { amount: '½ tsp', item: 'baking soda' },
+            { amount: '¼ tsp', item: 'salt' },
+            { amount: '¼ cup', item: 'sugar' },
+            { amount: '¼ cup', item: 'brown sugar' },
+          ],
+        },
+        {
+          title: 'Wet',
+          items: [
+            { amount: '3–4 tbsp', item: 'full-fat oat milk' },
+            { amount: '2 tbsp', item: "plant-based butter, melted (recommend Miyoko's)" },
+            { amount: '¼ tsp', item: 'pure vanilla extract' },
+          ],
+        },
+        {
+          title: 'Mix-ins',
+          items: [
+            { amount: '1/3 cup', item: 'dairy-free chocolate chips (recommend Enjoy Life)' },
+            { amount: '1/3 cup', item: 'dairy-free white chocolate chips (recommend Enjoy Life)' },
+            { amount: '4', item: 'Oreos, crumbled' },
+          ],
+        },
+      ],
+      steps: [
+        'Preheat the oven to 325°F.',
+        'Mix all the dry ingredients: 1 cup flour, ½ tsp baking soda, ¼ tsp salt, ¼ cup sugar, and ¼ cup brown sugar. Crumble the 4 Oreos.',
+        'Melt 2 tbsp butter in the microwave.',
+        'Mix all the wet ingredients: the melted butter, 3 tbsp oat milk, and ¼ tsp vanilla extract. Add more milk if needed to get everything to combine.',
+        'Mixy mixy: stir the wet ingredients into the dry, then fold in 1/3 cup chocolate chips, 1/3 cup white chocolate chips, and the crumbled Oreos.',
+        'Roll out into balls of whatever size you like.',
+        'Add to a baking sheet and bake for 10–13 minutes, depending on cookie size. I guess if you just made one giant one, I have no idea how long that would take.',
+      ],
+    },
   },
   {
     slug: 'spaghetti-and-meatballs',
